@@ -1,17 +1,20 @@
 # Quote Editor
 
-[Hotrails](https://www.hotrails.dev/)でTrubo Rails / Hotwire を学習するためのレポジトリです。
+[Hotrails](https://www.hotrails.dev/)でTurbo Rails / Hotwireを学習するためのレポジトリです。
 
-## dependencies
+## Goal
+
+Hotwire（Turbo / Stimulus）を使ったCRUDアプリの実装理解
+
+## Dependencies
 
 - Ruby 3.4.7
 - Rails 7.0.8
-- Node 24系推奨
+- Node 24系（推奨）
 - Yarn
 - PostgreSQL
-- Configuration
 
-## setup
+## Setup
 
 ### 1. Yarn 有効化
 
@@ -36,7 +39,7 @@ rails _7.0.8_ new quote-editor --css=sass --javascript=esbuild --database=postgr
 
 ### 4. turbo-rails のバージョン固定
 
-```bash
+```ruby
 gem "turbo-rails", "~> 1.0"
 ```
 
@@ -48,26 +51,38 @@ bin/setup
 bin/dev
 ```
 
-### 想定される問題
+## Known Issues（ハマりポイント）
 
-- Yarn 未導入のまま rails new --javascript=esbuild すると JS 依存が不完全になる
-- Node 25系では EBADF に当たる可能性があるため Node 24系推奨
+### Yarn未導入問題
+
+- `rails new --javascript=esbuild` 実行前に Yarn が必要
+- 未導入だと Turbo / Stimulus の依存が壊れる
+
+---
+
+### Node 25 問題
+
+- Node 25系で以下エラーが発生することがある
 
 ```bash
 Error: EBADF: bad file descriptor, fstat
-...
 ```
 
-- minitest 6 で system test が壊れることがあり
+Node 24系を推奨します。
+
+---
+
+### minitest 6 問題
+
+- system test 実行時にエラー
 
 ```bash
-'run': wrong number of arguments (given 3, expected 1..2) (ArgumentError)
-...in Minitest::Runnable.run_suite'
+'run': wrong number of arguments (given 3, expected 1..2)
 ```
 
-- minitest < 6 を Gemfileに指定する
+#### 対処
 
-```Gemfile
+```ruby
 group :test do
   gem "minitest", "< 6"
 end
@@ -78,22 +93,16 @@ bundle update minitest
 bin/rails test:system
 ```
 
-### テスト
-
-- How to run the test suite
+## Test
 
 ```bash
 bin/rails test:system
 ```
 
-- Services (job queues, cache servers, search engines, etc.)
+## Services
 
-```bash
 WIP
-```
 
-- Deployment instructions
+## Deployment
 
-```bash
 WIP
-```
