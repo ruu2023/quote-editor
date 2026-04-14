@@ -93,6 +93,33 @@ bundle update minitest
 bin/rails test:system
 ```
 
+## Chapter5 Real-time updates with Turbo Streams
+
+- 最後の全てまとめて1文にするとき、以下のコードではdestroyのみ動作しない事象
+
+```ruby
+# app/models/quote.rb
+
+class Quote < ApplicationRecord
+  # All the previous code
+
+  broadcasts_to ->(quote) { "quotes" }, inserts_by: :prepend
+end
+```
+
+- destroy を別で記載すると正しく動作（rails の destroy stream は更新が入るのでバージョンによって書き方変わる）
+
+```ruby
+# app/models/quote.rb
+
+class Quote < ApplicationRecord
+  # All the previous code
+
+  broadcasts_to ->(quote) { "quotes" }, inserts_by: :prepend
+  after_destroy_commit -> { broadcast_remove_to "quotes" }
+end
+```
+
 ## Test
 
 ```bash
