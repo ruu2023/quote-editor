@@ -120,6 +120,8 @@ class Quote < ApplicationRecord
 end
 ```
 
+- →数分経ってから after_destroy_commit なくても動いた。
+
 ## Test
 
 ```bash
