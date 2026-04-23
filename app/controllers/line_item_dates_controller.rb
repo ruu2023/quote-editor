@@ -3,7 +3,7 @@ class LineItemDatesController < ApplicationController
   before_action :set_line_item_date, only: [:edit, :update, :destroy]
 
   def new
-    @line_item_date = @quote.line_item_dates.build
+    @line_item_date = @quote.line_item_dates.build(date: Date.current)
   end
 
   def create
