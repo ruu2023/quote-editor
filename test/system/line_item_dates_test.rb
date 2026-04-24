@@ -9,6 +9,7 @@ class LineItemDatesTest < ApplicationSystemTestCase
 
     visit quote_path(@quote)
   end
+  include ActionView::Helpers::NumberHelper
 
   test "Creating a new line item date" do
     assert_selector "h1", text: "First quote"
